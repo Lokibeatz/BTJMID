@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>BetJam - Участие</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #1a2a3a 0%, #0f1a24 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .logo {
+            background: #2c3e4e;
+            padding: 16px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo img {
+            height: 50px;
+            width: auto;
+            max-width: 80%;
+        }
+        .header {
+            background: #2c3e4e;
+            color: white;
+            padding: 8px 20px 24px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 24px 20px 32px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #1e2a36;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        .phone-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .phone-row select {
+            width: 100px;
+            padding: 14px 12px;
+            font-size: 1rem;
+            border: 1px solid #cfdfed;
+            border-radius: 24px;
+            background: #fefefe;
+            font-family: inherit;
+        }
+        .phone-row input {
+            flex: 1;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1rem;
+            border: 1px solid #cfdfed;
+            border-radius: 24px;
+            background: #fefefe;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #2c7da0;
+            box-shadow: 0 0 0 3px rgba(44,125,160,0.2);
+        }
+        .file-label {
+            display: inline-block;
+            background: #eef4fa;
+            padding: 12px 16px;
+            border-radius: 24px;
+            cursor: pointer;
+            color: #2c7da0;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            border: 1px dashed #2c7da0;
+            transition: background 0.2s;
+        }
+        .file-label:hover {
+            background: #e2eaf2;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .file-name {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #4a627a;
+            word-break: break-all;
+        }
+        .btn-submit {
+            background: #2c7da0;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
+        .btn-submit:active {
+            transform: scale(0.98);
+            background: #1f5e7a;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #7f8c8d;
+            padding: 16px 20px 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">
+            <img src="https://apk-betjam.com/assets/img/logo.webp" alt="BetJam">
+        </div>
+        <div class="header">
+            <h1>🎮 Участие</h1>
+            <p>Отправьте ID и скриншот депозита</p>
+        </div>
+        <div class="content">
+            <form id="raffleForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>🎮 Ваш ID *</label>
+                    <input type="text" id="gameId" placeholder="Введите ID аккаунта" required>
+                </div>
+                <div class="form-group">
+                    <label>📞 Номер телефона *</label>
+                    <div class="phone-row">
+                        <select id="countryCode">
+                            <option value="+7">🇷🇺 +7 (Россия)</option>
+                            <option value="+998">🇺🇿 +998 (Узбекистан)</option>
+                        </select>
+                        <input type="tel" id="phoneNumber" placeholder="90 123 45 67" required>
+                    </div>
+                    <div class="phone-hint" style="font-size:0.7rem; color:#5f7f9e; margin-top:4px; margin-left:12px;">
+                        Введите номер без кода, только цифры
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>📸 Скриншот депозита (30$+) *</label>
+                    <label for="screenshot" class="file-label">Выберите файл</label>
+                    <input type="file" name="screenshot" id="screenshot" accept="image/*" required>
+                    <div id="fileName" class="file-name"></div>
+                </div>
+                <button type="submit" class="btn-submit">Отправить заявку</button>
+            </form>
+            <div id="formMessage" class="message"></div>
+        </div>
+        <footer>
+            Ваши данные будут отправлены организатору.
+        </footer>
+    </div>
+
+    <script>
+        // ВАШ URL СКРИПТА (уже вставлен)
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykeG2qVZ912qbYvjIYoeWJRQ4TC18FFWwiCg7cHukR4oIrpp5zGmTbPG_By0HZeMja/exec';
+
+        const form = document.getElementById('raffleForm');
+        const messageDiv = document.getElementById('formMessage');
+        const fileInput = document.getElementById('screenshot');
+        const fileNameSpan = document.getElementById('fileName');
+        const countrySelect = document.getElementById('countryCode');
+        const phoneInput = document.getElementById('phoneNumber');
+
+        function updatePhonePlaceholder() {
+            const country = countrySelect.value;
+            if (country === '+7') {
+                phoneInput.placeholder = '912 345 67 89';
+                phoneInput.maxLength = 10;
+            } else {
+                phoneInput.placeholder = '90 123 45 67';
+                phoneInput.maxLength = 9;
+            }
+        }
+        countrySelect.addEventListener('change', updatePhonePlaceholder);
+        updatePhonePlaceholder();
+
+        fileInput.addEventListener('change', function() {
+            fileNameSpan.textContent = this.files.length ? '📎 ' + this.files[0].name : '';
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const gameId = document.getElementById('gameId').value.trim();
+            const countryCode = countrySelect.value;
+            const phoneNumber = phoneInput.value.trim();
+            const file = fileInput.files[0];
+
+            const digits = phoneNumber.replace(/\D/g, '');
+            if (!gameId) {
+                showMessage('Введите ID игрового аккаунта', 'error');
+                return;
+            }
+            if (!digits) {
+                showMessage('Введите номер телефона', 'error');
+                return;
+            }
+            let validLength = false;
+            if (countryCode === '+7') {
+                validLength = digits.length === 10;
+            } else if (countryCode === '+998') {
+                validLength = digits.length === 9;
+            }
+            if (!validLength) {
+                showMessage(`Некорректный номер. Для ${countryCode === '+7' ? 'России' : 'Узбекистана'} нужно ${countryCode === '+7' ? '10' : '9'} цифр после кода`, 'error');
+                return;
+            }
+            if (!file) {
+                showMessage('Прикрепите скриншот депозита', 'error');
+                return;
+            }
+
+            const fullPhone = countryCode + digits;
+            const formData = new FormData();
+            formData.append('gameId', gameId);
+            formData.append('phone', fullPhone);
+            formData.append('screenshot', file);
+
+            const submitBtn = form.querySelector('.btn-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const result = await response.json();
+                if (result.status === 'success') {
+                    showMessage('✅ Заявка отправлена! Ожидайте подтверждения.', 'success');
+                    form.reset();
+                    fileNameSpan.textContent = '';
+                    updatePhonePlaceholder();
+                } else {
+                    showMessage('❌ ' + (result.message || 'Не удалось отправить'), 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showMessage('❌ Ошибка соединения. Проверьте интернет и URL скрипта.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            setTimeout(() => {
+                messageDiv.className = 'message';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
